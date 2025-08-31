@@ -2,8 +2,10 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
-import { RootLayout } from "./pages/RootLayout";
-import { RegisterPage } from "./pages/RegisterPage";
+import { RootLayout } from "./layouts/RootLayout";
+import { AuthLayout } from "./layouts/AuthLayout";
+import { RegisterPage } from "./pages/auth/RegisterPage";
+import { LoginPage } from "./pages/auth/LoginPage";
 
 const route = createBrowserRouter([
   {
@@ -13,10 +15,19 @@ const route = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
+    ],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
       {
         path: "/register",
-        element: <RegisterPage />
-      }
+        element: <RegisterPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
     ],
   },
 ]);
