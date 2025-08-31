@@ -22,7 +22,7 @@ export const FormField = ({
       <div>
         <label
           htmlFor={id}
-          className="text-secondary mb-[4px] block text-[13px] font-[400]"
+          className="text-secondary mb-1 block text-[13px] font-normal"
         >
           {label}
         </label>
@@ -31,10 +31,10 @@ export const FormField = ({
           type={type}
           placeholder={placeholder}
           id={id}
-          className={`text-secondary h-[38px] w-full rounded-[6px] border px-[14px] text-[14px] font-[400] ${error ? "border-red-500" : "border-[#DBDADE]"} `}
+          className={`text-secondary h-10 w-full rounded-md border px-[14px] text-[14px] font-normal ${error ? "border-red-500" : "border-three"} `}
         />
         {error && (
-          <p className="mt-[4px] text-[12px] text-red-500">{error.message}</p>
+          <p className="mt-1 text-[12px] text-red-500">{error.message}</p>
         )}
       </div>
     </>

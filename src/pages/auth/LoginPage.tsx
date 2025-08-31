@@ -27,7 +27,7 @@ export const LoginPage = () => {
       />
 
       <form
-        className="flex flex-col gap-[16px]"
+        className="flex flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <FormField
@@ -49,7 +49,7 @@ export const LoginPage = () => {
         <button
           disabled={isSubmitting}
           type="submit"
-          className="bg-primary block h-[38px] cursor-pointer rounded-[6px] text-[15px] font-[500] text-white hover:opacity-90"
+          className="bg-primary block h-10 cursor-pointer rounded-[6px] text-sm font-medium text-white hover:opacity-90"
           style={{
             boxShadow: "0px 2px 4px 0px #A5A3AE4D",
           }}
@@ -64,10 +64,10 @@ export const LoginPage = () => {
         to="/forgot-password"
       />
 
-      <div className="mt-[26px] flex items-center justify-center gap-[26px]">
-        <div className="h-[1px] w-[160px] bg-[#DBDADE]"></div>
-        <div className="text-secondary text-[13px] font-[400]">or</div>
-        <div className="h-[1px] w-[160px] bg-[#DBDADE]"></div>
+      <div className="mt-6 flex items-center justify-center gap-6">
+        <div className="h-[1px] w-40 bg-[#DBDADE]"></div>
+        <div className="text-secondary text-[13px] font-normal">or</div>
+        <div className="h-[1px] w-40 bg-[#DBDADE]"></div>
       </div>
 
       <SocialLogin />
