@@ -6,6 +6,7 @@ import { RootLayout } from "./layouts/RootLayout";
 import { AuthLayout } from "./layouts/AuthLayout";
 import { RegisterPage } from "./pages/auth/RegisterPage";
 import { LoginPage } from "./pages/auth/LoginPage";
+import { OTPVerifyPage } from "./pages/auth/OTPVerifyPage";
 
 const route = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const route = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/otp-password",
+        element: <OTPVerifyPage />,
       },
     ],
   },

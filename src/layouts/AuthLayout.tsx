@@ -14,7 +14,7 @@ export const AuthLayout = () => {
           <img
             src="/assets/images/account-logo.svg"
             alt="Logo"
-            className="mx-auto mb-[32px] h-[55px] w-[58px] object-cover"
+            className="mx-auto mb-8 h-[55px] w-[58px] object-cover"
           />
           <Suspense fallback={<p>Loading</p>}>
             <Outlet />
