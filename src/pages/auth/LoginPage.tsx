@@ -5,8 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthHeading } from "../../components/Auth/AuthHeading";
 import { SocialLogin } from "../../components/Auth/SocialLogin";
 import { AuthLink } from "../../components/Auth/AuthLink";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { login } from "../../redux/slices/authSlice";
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      login({
+        accessToken: "123",
+        refreshToken: "abc",
+      }),
+    );
+  }, [dispatch]);
+
   const {
     register,
     handleSubmit,
@@ -26,10 +39,7 @@ export const LoginPage = () => {
         subtitle="Please sign in to your account and start the adventure!"
       />
 
-      <form
-        className="flex flex-col gap-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <FormField
           id="email"
           label="Email"

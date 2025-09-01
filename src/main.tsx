@@ -7,6 +7,8 @@ import { AuthLayout } from "./layouts/AuthLayout";
 import { RegisterPage } from "./pages/auth/RegisterPage";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { OTPVerifyPage } from "./pages/auth/OTPVerifyPage";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const route = createBrowserRouter([
   {
@@ -38,5 +40,7 @@ const route = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-  <RouterProvider router={route} />,
+  <Provider store={store}>
+    <RouterProvider router={route} />,
+  </Provider>,
 );
