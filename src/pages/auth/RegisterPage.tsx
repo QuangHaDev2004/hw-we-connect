@@ -8,6 +8,7 @@ import {
   registerSchema,
   type RegisterForm,
 } from "../../schemas/auth/register.schema";
+import { useRegisterMutation } from "../../services/rootApi";
 
 export const RegisterPage = () => {
   const {
@@ -18,9 +19,17 @@ export const RegisterPage = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: RegisterForm) => {
-    console.log(data);
+  const [registerMutation, { data, isLoading, error }] = useRegisterMutation();
+
+  const onSubmit = (formData: RegisterForm) => {
+    console.log(formData);
+    registerMutation(formData);
   };
+
+  console.log(data);
+  console.log(isLoading);
+  console.log(error);
+  
 
   return (
     <>
@@ -29,10 +38,7 @@ export const RegisterPage = () => {
         subtitle="Make your app management easy and fun!"
       />
 
-      <form
-        className="flex flex-col gap-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <FormField
           id="fullName"
           label="Full Name"
