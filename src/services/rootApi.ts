@@ -5,7 +5,9 @@ export const rootApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
   }),
-  endpoints: (builder) => ({ // định nghĩa các API endpoint
+  // định nghĩa các API endpoint
+  endpoints: (builder) => ({
+    // call API signup
     register: builder.mutation({
       query: ({ fullName, email, password }) => ({
         url: "/signup",
@@ -13,7 +15,16 @@ export const rootApi = createApi({
         body: { fullName, email, password },
       }),
     }),
+
+    // Call API login
+    login: builder.mutation({
+      query: ({ email, password }) => ({
+        url: "/login",
+        method: "POST",
+        body: { email, password },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation } = rootApi;
+export const { useRegisterMutation, useLoginMutation } = rootApi;
