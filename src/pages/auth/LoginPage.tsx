@@ -8,6 +8,7 @@ import { AuthLink } from "../../components/Auth/AuthLink";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { login } from "../../redux/slices/authSlice";
+import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,10 @@ export const LoginPage = () => {
           error={errors.password}
         />
 
+        <Link to="/forgot-password" className="text-secondary flex justify-end text-sm hover:text-primary">
+          Forgot password?
+        </Link>
+
         <button
           disabled={isSubmitting}
           type="submit"
@@ -69,15 +74,15 @@ export const LoginPage = () => {
       </form>
 
       <AuthLink
-        text="Can't remember your password?"
-        linkText="Forgot Password?"
-        to="/forgot-password"
+        text="Don't have an account?"
+        linkText="Create account"
+        to="/register"
       />
 
       <div className="mt-6 flex items-center justify-center gap-6">
-        <div className="h-[1px] w-40 bg-[#DBDADE]"></div>
+        <div className="h-[1px] w-40 bg-three"></div>
         <div className="text-secondary text-[13px] font-normal">or</div>
-        <div className="h-[1px] w-40 bg-[#DBDADE]"></div>
+        <div className="h-[1px] w-40 bg-three"></div>
       </div>
 
       <SocialLogin />

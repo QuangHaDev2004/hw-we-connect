@@ -22,7 +22,7 @@ export const FormField = ({
       <div>
         <label
           htmlFor={id}
-          className="text-secondary mb-1 block text-[13px] font-normal"
+          className="text-secondary mb-1 block text-sm font-normal"
         >
           {label}
         </label>
