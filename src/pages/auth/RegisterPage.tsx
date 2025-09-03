@@ -9,8 +9,13 @@ import {
   type RegisterForm,
 } from "../../schemas/auth/register.schema";
 import { useRegisterMutation } from "../../services/rootApi";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export const RegisterPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -19,17 +24,23 @@ export const RegisterPage = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const [registerMutation, { data, isLoading, error }] = useRegisterMutation();
+  const [registerMutation, { data, isLoading, isSuccess, isError }] =
+    useRegisterMutation();
 
   const onSubmit = (formData: RegisterForm) => {
-    console.log(formData);
     registerMutation(formData);
   };
 
-  console.log(data);
-  console.log(isLoading);
-  console.log(error);
-  
+  useEffect(() => {
+    if (isError) {
+      toast.error("Email không hợp lệ!");
+    }
+
+    if (isSuccess) {
+      toast.success("Đăng ký thành công!");
+      navigate("/login");
+    }
+  }, [isError, isSuccess, navigate]);
 
   return (
     <>

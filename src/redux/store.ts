@@ -4,7 +4,7 @@ import { rootApi } from "../services/rootApi";
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
+    auth: authReducer, // cái này chính là authSlice.reducer
     [rootApi.reducerPath]: rootApi.reducer,
   },
 
