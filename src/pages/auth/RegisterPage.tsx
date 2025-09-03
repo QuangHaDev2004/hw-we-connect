@@ -15,6 +15,7 @@ import { useEffect } from "react";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
+  const [registerMutation, { isSuccess, isError }] = useRegisterMutation();
 
   const {
     register,
@@ -23,9 +24,6 @@ export const RegisterPage = () => {
   } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
   });
-
-  const [registerMutation, { data, isLoading, isSuccess, isError }] =
-    useRegisterMutation();
 
   const onSubmit = (formData: RegisterForm) => {
     registerMutation(formData);
