@@ -63,7 +63,7 @@ export const LoginPage = () => {
         <FormField
           id="password"
           label="Password"
-          type="text"
+          type="password"
           register={register("password")}
           error={errors.password}
         />
