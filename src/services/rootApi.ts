@@ -1,9 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { User } from "../types/user.type";
+import type { RootState } from "../redux/store";
 
 export const rootApi = createApi({
   reducerPath: "api", // tên của slice trong Redux store
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.accessToken;
+
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+    },
   }),
   // định nghĩa các API endpoint
   endpoints: (builder) => ({
@@ -33,8 +42,17 @@ export const rootApi = createApi({
         body: { email, otp },
       }),
     }),
+
+    // Call API auth user
+    getAuthUser: builder.query<User, void>({
+      query: () => "/auth-user",
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useVerifyOTPMutation } =
-  rootApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useVerifyOTPMutation,
+  useGetAuthUserQuery,
+} = rootApi;
