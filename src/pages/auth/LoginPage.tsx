@@ -20,6 +20,7 @@ export const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
   });
@@ -33,11 +34,15 @@ export const LoginPage = () => {
       toast.error((error as any)?.data?.message);
     }
 
-    if (isSuccess && data?.success === "true") {
+    if (isSuccess) {
       toast.success(data.message);
-      navigate("/otp-password");
+      navigate("/otp-password", {
+        state: {
+          email: getValues("email"),
+        },
+      });
     }
-  }, [data.message, data?.success, error, isError, isSuccess, navigate]);
+  }, [data?.message, error, getValues, isError, isSuccess, navigate]);
 
   return (
     <>
@@ -58,7 +63,7 @@ export const LoginPage = () => {
         <FormField
           id="password"
           label="Password"
-          type="password"
+          type="text"
           register={register("password")}
           error={errors.password}
         />

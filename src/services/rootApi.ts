@@ -24,7 +24,17 @@ export const rootApi = createApi({
         body: { email, password },
       }),
     }),
+
+    // Call API verify OTP
+    verifyOTP: builder.mutation({
+      query: ({ email, otp }) => ({
+        url: "/verify-otp",
+        method: "POST",
+        body: { email, otp },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = rootApi;
+export const { useRegisterMutation, useLoginMutation, useVerifyOTPMutation } =
+  rootApi;
