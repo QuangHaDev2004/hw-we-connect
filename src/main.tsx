@@ -8,8 +8,9 @@ import { RegisterPage } from "./pages/auth/RegisterPage";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { OTPVerifyPage } from "./pages/auth/OTPVerifyPage";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { persistor, store } from "./redux/store";
 import { ToastContainer } from "react-toastify";
+import { PersistGate } from "redux-persist/integration/react";
 
 const route = createBrowserRouter([
   {
@@ -42,7 +43,9 @@ const route = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <RouterProvider router={route} />,
-    <ToastContainer autoClose={3000} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={route} />,
+      <ToastContainer autoClose={3000} />
+    </PersistGate>
   </Provider>,
 );
