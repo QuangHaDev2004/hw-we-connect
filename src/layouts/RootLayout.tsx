@@ -1,14 +1,22 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useGetAuthUserQuery } from "../services/rootApi";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const RootLayout = () => {
   const response = useGetAuthUserQuery();
-  if (!response?.data?._id) {
+
+  console.log(response);
+
+  if ((response.error as FetchBaseQueryError)?.status === 401) {
     return <Navigate to="/login" />;
   }
 
   if (response.isLoading) {
     return <p>Loading...</p>;
+  }
+
+  if (!response?.data?._id) {
+    return <Navigate to="/login" />;
   }
 
   return (
