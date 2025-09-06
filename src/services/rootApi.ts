@@ -1,19 +1,43 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+import {
+  createApi,
+  fetchBaseQuery,
+  type BaseQueryApi,
+  type FetchArgs,
+} from "@reduxjs/toolkit/query/react";
 import type { User } from "../types/user.type";
-import type { RootState } from "../redux/store";
+import { logout } from "../redux/slices/authSlice";
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: import.meta.env.VITE_BASE_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as any).auth.accessToken;
+
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+  },
+});
+
+const baseQueryWithForceLogout = async (
+  args: string | FetchArgs,
+  api: BaseQueryApi,
+  extraOptions: {},
+) => {
+  const result = await baseQuery(args, api, extraOptions);
+
+  if (result?.error?.status === 401) {
+    api.dispatch(logout());
+    window.location.href = "/login";
+  }
+
+  return result;
+};
 
 export const rootApi = createApi({
   reducerPath: "api", // tên của slice trong Redux store
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.accessToken;
-
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-    },
-  }),
+  baseQuery: baseQueryWithForceLogout,
   // định nghĩa các API endpoint
   endpoints: (builder) => ({
     // call API signup
