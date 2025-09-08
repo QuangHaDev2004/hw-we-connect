@@ -1,6 +1,9 @@
 import { FaMagnifyingGlass, FaRegBell } from "react-icons/fa6";
+import { useUserInfo } from "../../hooks/useUserInfo";
 
 export const Header = () => {
+  const userInfo = useUserInfo();
+
   return (
     <div
       className="flex h-[62px] items-center gap-6 bg-white px-6 py-3.5"
@@ -28,14 +31,10 @@ export const Header = () => {
         </div>
         <div className="dropdown dropdown-end">
           <div
-            className="h-8 w-8 cursor-pointer overflow-hidden rounded-full"
+            className="bg-secondary flex h-8 w-8 cursor-pointer items-center justify-center overflow-hidden rounded-full text-white uppercase"
             tabIndex={0}
           >
-            <img
-              src="/assets/images/avatar.svg"
-              alt=""
-              className="h-full w-full object-cover"
-            />
+            {userInfo.fullName?.[0]}
           </div>
           <ul
             tabIndex={0}
