@@ -2,14 +2,22 @@ import { HiCubeTransparent } from "react-icons/hi";
 import { HiLanguage } from "react-icons/hi2";
 import { IoNewspaperOutline, IoSettingsOutline } from "react-icons/io5";
 import { TbBrandMessenger, TbFriends } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import type { RootState } from "../../redux/store";
+import { closeSidebar } from "../../redux/slices/sidebarSlice";
 
 export const Sidebar = () => {
+  const isOpenSidebar = useSelector((state: RootState) => state.sidebar.isOpen);
+  const dispatch = useDispatch();
+
   return (
     <>
-      <div className="flex w-[260px] flex-col gap-4">
+      <div
+        className={`w-[260px] lg:flex flex-col gap-4 ${isOpenSidebar ? "fixed top-0 left-0 z-[999] h-[100vh] bg-white p-4" : "hidden"}`}
+      >
         <div
-          className="flex w-full flex-col gap-6 rounded-md bg-white px-[30px] py-[20px]"
+          className="mb-[24px] flex w-full flex-col gap-6 rounded-md bg-white px-[30px] py-[20px] lg:mb-0"
           style={{
             boxShadow: "0px 2px 4px 0px #A5A3AE4D",
           }}
@@ -71,6 +79,11 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
+      {/* Overlay */}
+      <div
+        onClick={() => dispatch(closeSidebar())}
+        className={`${isOpenSidebar ? "fixed inset-0 z-[998] block bg-[#000000c2]" : "hidden"}`}
+      ></div>
     </>
   );
 };
