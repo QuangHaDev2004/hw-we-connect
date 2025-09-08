@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "../redux/slices/authSlice";
+import sidebarReducer from "../redux/slices/sidebarSlice";
 import { rootApi } from "../services/rootApi";
 import storage from "redux-persist/lib/storage";
 import {
@@ -22,6 +23,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer, // authSlice.reducer
+  sidebar: sidebarReducer,
   [rootApi.reducerPath]: rootApi.reducer,
 });
 

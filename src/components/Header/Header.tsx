@@ -1,10 +1,13 @@
-import { FaMagnifyingGlass, FaRegBell } from "react-icons/fa6";
+import { FaBars, FaMagnifyingGlass, FaRegBell } from "react-icons/fa6";
 import { useUserInfo } from "../../hooks/useUserInfo";
 import { useLogout } from "../../hooks/useLogout";
+import { useDispatch } from "react-redux";
+import { openSidebar } from "../../redux/slices/sidebarSlice";
 
 export const Header = () => {
   const userInfo = useUserInfo();
   const logout = useLogout();
+  const dispatch = useDispatch();
 
   return (
     <div
@@ -50,6 +53,12 @@ export const Header = () => {
             </li>
           </ul>
         </div>
+        <button
+          className="ml-4 block lg:hidden"
+          onClick={() => dispatch(openSidebar())}
+        >
+          <FaBars className="cursor-pointer text-[24px]" />
+        </button>
       </div>
     </div>
   );
