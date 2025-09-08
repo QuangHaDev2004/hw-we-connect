@@ -1,8 +1,10 @@
 import { FaMagnifyingGlass, FaRegBell } from "react-icons/fa6";
 import { useUserInfo } from "../../hooks/useUserInfo";
+import { useLogout } from "../../hooks/useLogout";
 
 export const Header = () => {
   const userInfo = useUserInfo();
+  const logout = useLogout();
 
   return (
     <div
@@ -44,7 +46,7 @@ export const Header = () => {
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <button onClick={logout}>Logout</button>
             </li>
           </ul>
         </div>
