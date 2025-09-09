@@ -14,7 +14,7 @@ export const Sidebar = () => {
   return (
     <>
       <div
-        className={`w-[260px] lg:flex flex-col gap-4 ${isOpenSidebar ? "fixed top-0 left-0 z-[999] h-[100vh] bg-white p-4" : "hidden"}`}
+        className={`w-[260px] flex-col gap-4 lg:flex ${isOpenSidebar ? "fixed top-0 left-0 z-[999] h-[100vh] bg-white p-4" : "hidden"}`}
       >
         <div
           className="mb-[24px] flex w-full flex-col gap-6 rounded-md bg-white px-[30px] py-[20px] lg:mb-0"

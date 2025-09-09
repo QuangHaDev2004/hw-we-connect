@@ -24,7 +24,7 @@ body {
   background-color: #f8f7fa;
 }
 
-input {
+input, textarea {
   outline: none;
 }
 
@@ -34,3 +34,4 @@ input {
   padding-left: 16px;
   padding-right: 16px;
 }
+
