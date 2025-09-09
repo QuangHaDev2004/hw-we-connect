@@ -1,11 +1,10 @@
 import { FaBars, FaMagnifyingGlass, FaRegBell } from "react-icons/fa6";
-import { useUserInfo } from "../../hooks/useUserInfo";
 import { useLogout } from "../../hooks/useLogout";
 import { useDispatch } from "react-redux";
 import { openSidebar } from "../../redux/slices/sidebarSlice";
+import { Avatar } from "../Avatar/Avatar";
 
 export const Header = () => {
-  const userInfo = useUserInfo();
   const logout = useLogout();
   const dispatch = useDispatch();
 
@@ -35,12 +34,7 @@ export const Header = () => {
           </span>
         </div>
         <div className="dropdown dropdown-end">
-          <div
-            className="bg-secondary flex h-8 w-8 cursor-pointer items-center justify-center overflow-hidden rounded-full text-white uppercase"
-            tabIndex={0}
-          >
-            {userInfo.fullName?.[0]}
-          </div>
+          <Avatar />
           <ul
             tabIndex={0}
             className="dropdown-content menu text-secondary z-1 w-[120px] rounded-md bg-white p-2 text-[15px] font-medium shadow-sm"
