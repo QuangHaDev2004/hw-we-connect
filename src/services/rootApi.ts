@@ -71,6 +71,16 @@ export const rootApi = createApi({
     getAuthUser: builder.query<User, void>({
       query: () => "/auth-user",
     }),
+
+    createPost: builder.mutation({
+      query: ({ content, image }) => {
+        return {
+          url: "/posts",
+          method: "POST",
+          body: { content, image },
+        };
+      },
+    }),
   }),
 });
 
@@ -79,4 +89,5 @@ export const {
   useLoginMutation,
   useVerifyOTPMutation,
   useGetAuthUserQuery,
+  useCreatePostMutation,
 } = rootApi;
