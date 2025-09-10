@@ -1,19 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useState } from "react";
 import { useUserInfo } from "../../hooks/useUserInfo";
 import { Dialog } from "../Dialog/Dialog";
 import { Avatar } from "../Avatar/Avatar";
 import { useDropzone } from "react-dropzone";
 import { FaXmark } from "react-icons/fa6";
+import { useCreatePostMutation } from "../../services/rootApi";
+import { toast } from "react-toastify";
 
 export const PostCreation = () => {
   const userInfo = useUserInfo();
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState<File | null>(null);
+  const [content, setContent] = useState("");
+
+  const [createNewPost, { data, isSuccess, isLoading }] =
+    useCreatePostMutation();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setImage(acceptedFiles[0]);
   }, []);
-  
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
@@ -53,7 +60,11 @@ export const PostCreation = () => {
             <Avatar />
             <div className="">{userInfo.fullName}</div>
           </div>
-          <textarea className="border-three h-[150px] w-full resize-none rounded-md border p-4"></textarea>
+          <textarea
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            className="border-three h-[150px] w-full resize-none rounded-md border p-4"
+          ></textarea>
 
           <div
             {...getRootProps()}
@@ -78,7 +89,18 @@ export const PostCreation = () => {
             </div>
           )}
 
-          <button className="bg-primary mt-4 h-10 w-full cursor-pointer rounded-md text-center text-[14px] font-bold text-white uppercase">
+          <button
+            onClick={async () => {
+              try {
+                await createNewPost({ content }).unwrap();
+                setIsOpen(false);
+                toast.success("Create Post Successfully!");
+              } catch (error: any) {
+                toast.error(error?.data?.message);
+              }
+            }}
+            className="bg-primary mt-4 h-10 w-full cursor-pointer rounded-md text-center text-[14px] font-bold text-white uppercase"
+          >
             POST
           </button>
         </Dialog>
