@@ -10,7 +10,7 @@ export const Header = () => {
 
   return (
     <div
-      className="flex h-[62px] items-center gap-6 bg-white px-6 py-3.5"
+      className="flex h-[62px] items-center gap-6 bg-white px-6 py-3.5 justify-between"
       style={{
         boxShadow: "0px 2px 4px 0px #A5A3AE4D",
       }}
@@ -22,9 +22,9 @@ export const Header = () => {
           className="h-full w-full object-cover"
         />
       </div>
-      <form action="" className="flex h-[38px] flex-1 items-center gap-[10px]">
+      <form action="" className="sm:flex h-[38px] flex-1 items-center gap-[10px] hidden">
         <FaMagnifyingGlass className="text-secondary text-xl" />
-        <input type="text" name="keyword" id="" placeholder="Search" />
+        <input type="text" name="keyword" id="" placeholder="Search..." className="w-1/2" />
       </form>
       <div className="flex items-center gap-3">
         <div className="relative h-[26px] w-[26px]">
@@ -48,7 +48,7 @@ export const Header = () => {
           </ul>
         </div>
         <button
-          className="ml-4 block lg:hidden"
+          className="block lg:hidden"
           onClick={() => dispatch(openSidebar())}
         >
           <FaBars className="cursor-pointer text-[24px]" />
