@@ -31,6 +31,24 @@ export const PostCreation = () => {
     },
   });
 
+  const handleCreateNewPost = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("content", content);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await createNewPost(formData).unwrap();
+      setIsOpen(false);
+      toast.success("Create Post Successfully!");
+    } catch (error: any) {
+      toast.error(error?.data?.message);
+    }
+  };
+
+  const isValid = Boolean(content || image);
+
   return (
     <>
       <div
@@ -90,18 +108,15 @@ export const PostCreation = () => {
           )}
 
           <button
-            onClick={async () => {
-              try {
-                await createNewPost({ content }).unwrap();
-                setIsOpen(false);
-                toast.success("Create Post Successfully!");
-              } catch (error: any) {
-                toast.error(error?.data?.message);
-              }
-            }}
-            className="bg-primary mt-4 h-10 w-full cursor-pointer rounded-md text-center text-[14px] font-bold text-white uppercase"
+            disabled={!isValid}
+            onClick={handleCreateNewPost}
+            className="bg-primary disabled:bg-three disabled:text-secondary mt-4 h-10 w-full cursor-pointer rounded-md text-center text-[14px] font-bold text-white uppercase disabled:cursor-not-allowed"
           >
-            POST
+            {isLoading ? (
+              <div className="loading loading-spinner loading-md"></div>
+            ) : (
+              "POST"
+            )}
           </button>
         </Dialog>
       </div>
