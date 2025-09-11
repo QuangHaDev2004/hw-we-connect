@@ -7,7 +7,7 @@ import {
   type FetchArgs,
 } from "@reduxjs/toolkit/query/react";
 import type { User } from "../types/user.type";
-import { logout } from "../redux/slices/authSlice";
+import { login, logout } from "../redux/slices/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
@@ -17,19 +17,48 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
+
+    return headers;
   },
 });
 
-const baseQueryWithForceLogout = async (
+const baseQueryWithReauth = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
   extraOptions: {},
 ) => {
-  const result = await baseQuery(args, api, extraOptions);
+  let result = await baseQuery(args, api, extraOptions);
+  const state = api.getState() as any;
 
   if (result?.error?.status === 401) {
-    api.dispatch(logout());
-    window.location.href = "/login";
+    const refreshToken = state.auth.refreshToken;
+    if (refreshToken) {
+      const refreshResult = await baseQuery(
+        {
+          url: "/refresh-token",
+          method: "POST",
+          body: { refreshToken },
+        },
+        api,
+        extraOptions,
+      );
+
+      const newAccessToken = (refreshResult?.data as { accessToken: string })
+        ?.accessToken;
+      if (newAccessToken) {
+        api.dispatch(
+          login({
+            accessToken: newAccessToken,
+            refreshToken,
+          }),
+        );
+
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        api.dispatch(logout());
+        window.location.href = "/login";
+      }
+    }
   }
 
   return result;
@@ -37,7 +66,7 @@ const baseQueryWithForceLogout = async (
 
 export const rootApi = createApi({
   reducerPath: "api", // tên của slice trong Redux store
-  baseQuery: baseQueryWithForceLogout,
+  baseQuery: baseQueryWithReauth,
   // định nghĩa các API endpoint
   endpoints: (builder) => ({
     // call API signup
@@ -67,6 +96,14 @@ export const rootApi = createApi({
       }),
     }),
 
+    refreshToken: builder.mutation({
+      query: (refreshToken) => ({
+        url: "/refresh-token",
+        method: "POST",
+        body: { refreshToken },
+      }),
+    }),
+
     // Call API auth user
     getAuthUser: builder.query<User, void>({
       query: () => "/auth-user",
@@ -90,4 +127,5 @@ export const {
   useVerifyOTPMutation,
   useGetAuthUserQuery,
   useCreatePostMutation,
+  useRefreshTokenMutation,
 } = rootApi;
