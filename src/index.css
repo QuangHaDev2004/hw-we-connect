@@ -2,7 +2,7 @@
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: false;
-};
+}
 
 @theme {
   --breakpoint-sm: 576px;
@@ -13,7 +13,7 @@
 
   --color-primary: #246aa3;
   --color-secondary: #4b465c;
-  --color-three: #DBDADE;
+  --color-three: #dbdade;
 }
 
 * {
@@ -24,7 +24,8 @@ body {
   background-color: #f8f7fa;
 }
 
-input, textarea {
+input,
+textarea {
   outline: none;
 }
 
@@ -34,4 +35,3 @@ input, textarea {
   padding-left: 16px;
   padding-right: 16px;
 }
-
