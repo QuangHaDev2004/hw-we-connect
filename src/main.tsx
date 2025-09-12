@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
+import { Loading } from "./components/Loading/Loading";
 
 const route = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const route = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<Loading />} persistor={persistor}>
       <RouterProvider router={route} />,
       <ToastContainer autoClose={3000} />
     </PersistGate>

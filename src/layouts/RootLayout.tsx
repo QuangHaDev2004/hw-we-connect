@@ -15,10 +15,6 @@ export const RootLayout = () => {
     }
   }, [dispatch, response.data, response.isSuccess]);
 
-  if (response.isLoading) {
-    return <p>Loading...</p>;
-  }
-
   // if (!response?.data?._id) {
   //   return <Navigate to="/login" />;
   // }
