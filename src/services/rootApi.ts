@@ -67,6 +67,8 @@ const baseQueryWithReauth = async (
 export const rootApi = createApi({
   reducerPath: "api", // tên của slice trong Redux store
   baseQuery: baseQueryWithReauth,
+  tagTypes: ["Posts"],
+
   // định nghĩa các API endpoint
   endpoints: (builder) => ({
     // call API signup
@@ -117,11 +119,13 @@ export const rootApi = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ["Posts"],
     }),
 
     getPosts: builder.query<Post[], void>({
-      query: () => "/posts"
-    })
+      query: () => "/posts",
+      providesTags: ["Posts"],
+    }),
   }),
 });
 
@@ -132,5 +136,5 @@ export const {
   useGetAuthUserQuery,
   useCreatePostMutation,
   useRefreshTokenMutation,
-  useGetPostsQuery
+  useGetPostsQuery,
 } = rootApi;
