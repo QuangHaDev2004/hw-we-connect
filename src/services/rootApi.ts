@@ -6,8 +6,8 @@ import {
   type BaseQueryApi,
   type FetchArgs,
 } from "@reduxjs/toolkit/query/react";
-import type { User } from "../types/user.type";
 import { login, logout } from "../redux/slices/authSlice";
+import type { Post, User } from "../types";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
@@ -118,6 +118,10 @@ export const rootApi = createApi({
         };
       },
     }),
+
+    getPosts: builder.query<Post[], void>({
+      query: () => "/posts"
+    })
   }),
 });
 
@@ -128,4 +132,5 @@ export const {
   useGetAuthUserQuery,
   useCreatePostMutation,
   useRefreshTokenMutation,
+  useGetPostsQuery
 } = rootApi;
