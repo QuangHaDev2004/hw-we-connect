@@ -2,14 +2,23 @@ import dayjs from "dayjs";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa6";
 import { MdOutlineModeComment } from "react-icons/md";
 
+type PostItemProps = {
+  fullName: string;
+  createdAt: string;
+  content: string;
+  image?: string;
+  likes: string[];
+  comments: string[];
+};
+
 export const PostItem = ({
   fullName,
-  createAt,
+  createdAt,
   content,
-  image = "https://images.unsplash.com/photo-1526779259212-939e64788e3c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
+  image,
   likes,
   comments,
-}) => {
+}: PostItemProps) => {
   return (
     <div
       className="mb-4 rounded-md bg-white"
@@ -26,35 +35,27 @@ export const PostItem = ({
             {fullName?.[0]}
           </div>
           <div>
-            <p className="text-secondary text-[15px] font-medium">
-              {/* {fullName} */}
-              Le Van A
-            </p>
+            <p className="text-secondary text-[15px] font-medium">{fullName}</p>
             <p className="text-secondary text-[13px] font-normal opacity-50">
-              {/* {dayjs(createAt).format("DD/MM/YYYY")} */}9 hours ago
+              {dayjs(createdAt).format("DD/MM/YYYY HH:mm")}
             </p>
           </div>
         </div>
-        <p className="font-400 text-secondary mb-4 text-[15px]">
-          {content}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-          facilis a vero vel, eligendi optio iure sint velit quam magni
-          molestiae commodi ipsum esse excepturi voluptate ratione blanditiis,
-          deleniti iusto?
-        </p>
+        <p className="font-400 text-secondary mb-4 text-[15px]">{content}</p>
         {image && (
-          <img
-            src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D"
-            className="mb-4 w-full"
-          />
+          <div className="mb-4 aspect-video overflow-hidden">
+            <img src={image} className="h-full w-full object-contain" />
+          </div>
         )}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-[6px]">
             <FaThumbsUp className="text-primary text-[18px]" />
-            <p className="text-secondary text-[15px] font-normal">30</p>
+            <p className="text-secondary text-[15px] font-normal">
+              {likes.length}
+            </p>
           </div>
           <div className="text-secondary text-[15px] font-normal opacity-80">
-            9 comments
+            {comments.length} comments
           </div>
         </div>
       </div>
