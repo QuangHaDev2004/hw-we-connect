@@ -40,6 +40,8 @@ export const PostCreation = () => {
       }
 
       await createNewPost(formData).unwrap();
+      setContent("");
+      setImage(null);
       setIsOpen(false);
       toast.success("Create Post Successfully!");
     } catch (error: any) {
