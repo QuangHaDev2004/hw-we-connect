@@ -1,8 +1,13 @@
 import { useGetPostsQuery } from "../../services/rootApi";
+import { Loading } from "../Loading/Loading";
 import { PostItem } from "./PostItem";
 
 export const PostList = () => {
-  const { data } = useGetPostsQuery();
+  const { data, isFetching } = useGetPostsQuery();
+
+  if (isFetching) {
+    return <Loading />;
+  }
 
   return (
     <>

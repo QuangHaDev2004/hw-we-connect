@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+import { Loading } from "../components/Loading/Loading";
 
 export const AuthLayout = () => {
   return (
@@ -16,7 +17,7 @@ export const AuthLayout = () => {
             alt="Logo"
             className="mx-auto mb-8 h-[55px] w-[58px] object-cover"
           />
-          <Suspense fallback={<p>Loading</p>}>
+          <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>
         </div>
