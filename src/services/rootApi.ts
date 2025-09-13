@@ -122,11 +122,11 @@ export const rootApi = createApi({
       invalidatesTags: ["Posts"],
     }),
 
-    getPosts: builder.query<Post[], void | { limit?: number; skip?: number }>({
-      query: ({ limit, skip } = {}) => {
+    getPosts: builder.query<Post[], void | { limit?: number; offset?: number }>({
+      query: ({ limit, offset } = {}) => {
         return {
           url: "/posts",
-          params: { limit, skip },
+          params: { limit, offset },
         };
       },
       providesTags: ["Posts"],
